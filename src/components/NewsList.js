@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import NewsList from './NewsItem';
+import NewsItem from './NewsItem';
+
 
 const NewsListBlock = styled.div`
 box-sizing: border-box;
@@ -25,14 +26,15 @@ const NewsList = () =>{
 
     return(
         <NewsListBlock>
-            <NewsList article={sampleArticle} />
-            <NewsList article={sampleArticle} />
-            <NewsList article={sampleArticle} />
-            <NewsList article={sampleArticle} />
-            <NewsList article={sampleArticle} />
-            <NewsList article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+    
         </NewsListBlock>
     )
 }
 
-export default NewsList;
+export default NewsList
