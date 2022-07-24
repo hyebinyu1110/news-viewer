@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import NewsItem from './NewsItem';
 
 const NewsListBlock = styled.div`
@@ -60,7 +61,33 @@ const NewsList = () =>{
                     )
             }
             </NewsListBlock>
+=======
+import NewsItem from './components/NewsItem';
+
+const NewsListBlock = styled.div`
+
+`
+
+const sampleArticle = {
+    title: "제목",
+    descirption: "내용",
+    url: "www.google.com",
+    urlToImage: 'https://via.placeholder.com/160'
+}
+
+const NewsList = () => {
+
+    return (
+        <NewsListBlock>
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+        </NewsListBlock>
+>>>>>>> 6f7adca3136c8b57c7394737cd5d00093273adf6
     )
+
 }
 
 export default NewsList;
