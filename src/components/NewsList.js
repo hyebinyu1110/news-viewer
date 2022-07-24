@@ -1,7 +1,7 @@
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import NewsItem from './NewsItem';
-import axios from 'axios';
-import usePromise from '../lib/usePromise';
 
 const NewsListBlock = styled.div`
 box-sizing: border-box;
@@ -9,49 +9,57 @@ padding-bottom: 3rem;
 width: 768px;
 margin: 0 auto;
 margin-top: 2rem;
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px ){
     width: 100%;
-    padding-left: 1rem; 
+    padding-left: 1rem;
     padding-right: 1rem;
 }
-`
+`;
 
-const NewsList = ({ category }) => {
-    const [loading, response, error] = usePromise(() => {
-        const query = category === "all" ? "" : `&category=${category}`;
-        return axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=8c18e150c391487a94e2dba3b0d657eb`
-        );
+const sampleArticle = {
+    title: "제목",
+    description: "내용",
+    url: "https://google.com",
+    urlToImage: "https://via.placeholder.com/160",
+};
 
-    }, [category])
+const NewsList = () =>{
+    const [articles, setArticles] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    // 대기중일때,
-    if (loading) {
-        return <NewsListBlock>대기 중...</NewsListBlock>
+    useEffect( ()=>{
+     
+        const callData = async () =>{
+            setLoading(true);
+            try{
+                const response = await axios.get(
+                    "https://newsapi.org/v2/top-headlines?country=kr&apiKey=8c18e150c391487a94e2dba3b0d657eb"
+                    );
+                    setArticles(response.data.articles);
+            }catch(e){
+                console.log(e);
+            }
+            setLoading(false);
+        };
+        callData();        
+    }, []);
+
+    if(loading){
+        <NewsListBlock>대기 중...</NewsListBlock>
     }
 
-    //아직 response 값이  설정되지 않았을 때
-    if (!response) {
+    if(!articles){
         return null;
     }
 
-    //error 가 발생했을때
-    if (error) {
-        return <NewsListBlock>에러 발생!</NewsListBlock>
-    }
-
-
-    // response 값이  유효할때
-    const { articles } = response.data;
-
-    return (
+    return(
         <NewsListBlock>
             {
-                articles.map(article => (
+                articles.map(article =>
                     <NewsItem key={article.url} article={article} />
-                ))
+                    )
             }
-
-        </NewsListBlock>
+            </NewsListBlock>
     )
 }
 
