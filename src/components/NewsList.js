@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-<<<<<<< HEAD
 import NewsItem from './NewsItem';
 
 const NewsListBlock = styled.div`
@@ -17,77 +16,48 @@ margin-top: 2rem;
 }
 `;
 
-const sampleArticle = {
-    title: "제목",
-    description: "내용",
-    url: "https://google.com",
-    urlToImage: "https://via.placeholder.com/160",
-};
 
-const NewsList = () =>{
+const NewsList = ({ category }) => {
     const [articles, setArticles] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useEffect( ()=>{
-     
-        const callData = async () =>{
+    useEffect(() => {
+
+        const callData = async () => {
             setLoading(true);
-            try{
+
+            try {
+                const query = category === 'all' ? '' : `&category=${category}`;
                 const response = await axios.get(
-                    "https://newsapi.org/v2/top-headlines?country=kr&apiKey=8c18e150c391487a94e2dba3b0d657eb"
-                    );
-                    setArticles(response.data.articles);
-            }catch(e){
+                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=8c18e150c391487a94e2dba3b0d657eb`
+                );
+                setArticles(response.data.articles);
+            } catch (e) {
                 console.log(e);
             }
             setLoading(false);
         };
-        callData();        
-    }, []);
+        callData();
+    }, [category]);
 
-    if(loading){
+    if (loading) {
         <NewsListBlock>대기 중...</NewsListBlock>
     }
 
-    if(!articles){
+    if (!articles) {
         return null;
     }
 
-    return(
+    return (
         <NewsListBlock>
             {
                 articles.map(article =>
                     <NewsItem key={article.url} article={article} />
-                    )
+                )
             }
-            </NewsListBlock>
-=======
-import NewsItem from './components/NewsItem';
-
-const NewsListBlock = styled.div`
-
-`
-
-const sampleArticle = {
-    title: "제목",
-    descirption: "내용",
-    url: "www.google.com",
-    urlToImage: 'https://via.placeholder.com/160'
-}
-
-const NewsList = () => {
-
-    return (
-        <NewsListBlock>
-            <NewsItem article={sampleArticle} />
-            <NewsItem article={sampleArticle} />
-            <NewsItem article={sampleArticle} />
-            <NewsItem article={sampleArticle} />
-            <NewsItem article={sampleArticle} />
         </NewsListBlock>
->>>>>>> 6f7adca3136c8b57c7394737cd5d00093273adf6
-    )
 
+    )
 }
 
 export default NewsList;
