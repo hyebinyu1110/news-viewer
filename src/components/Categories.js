@@ -1,22 +1,21 @@
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import styled, {css} from 'styled-components';
 
 const categories = [
     {
-        name: "all",
-        text: "전체보기",
+        name: 'all',
+        text:'모두 보기'
     },
     {
-        name: "business",
-        text: "비즈니스",
+        name: 'business',
+        text:"비즈니스",
     },
     {
-        name: "entertainment",
-        text: "엔터테인먼트",
+        name: 'entertainment',
+        text:"엔터테인먼트",
     },
     {
         name: "health",
-        text: "건강"
+        text: "건강",
     },
     {
         name: "science",
@@ -24,8 +23,12 @@ const categories = [
     },
     {
         name: "sports",
-        text: "스포츠",
-    }
+        text: "스포츠"
+    },
+    {
+        name: "technology",
+        text: "테크놀로지"
+    },
 ];
 
 const CategoriesBlock = styled.div`
@@ -33,13 +36,13 @@ display: flex;
 padding: 1rem;
 width: 768px;
 margin: 0 auto;
-@media screen and (max-width: 768px) {    
+@media screen and (max-width: 768px){
     width: 100%;
     overflow-x: auto;
 }
 `;
 
-const Category = styled(NavLink)`
+const Category = styled.div`
 font-size: 1.125rem;
 cursor: pointer;
 white-space: pre;
@@ -51,38 +54,37 @@ padding-bottom: 0.25rem;
     color: #495057;
 }
 
-&.active{
+${props=>
+props.active && css`
 font-weight: 600;
 border-bottom: 2px solid #22b8cf;
 color: #22b8cf;
 &:hover{
     color: #3bc9db;
 }
-}
+`}
 
 
-&+&{
+& + &{
     margin-left: 1rem;
 }
 `
 
-const Categories = () => {
-    return (
+const Categories = ({onSelect, category})=>{
+    return(
         <CategoriesBlock>
             {
-                categories.map(c =>
-                    <Category
-                        key={c.name}
-                        className={({ isActive }) => isActive ? 'active' : undefined}
-                        to={c.name === 'all' ? '/' : `/${c.name}`}
+                categories.map(c=>
+                    <Category 
+                    key={c.name}
+                    active={category === c.name}
+                    onClick={()=>onSelect(c.name)}
                     >
                         {c.text}
-                    </Category>
-                )
+                   </Category>
+                    )
             }
         </CategoriesBlock>
     )
-
 }
-
 export default Categories;
