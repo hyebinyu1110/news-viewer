@@ -1,17 +1,19 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
+import {NavLink} from 'react-router-dom';
+
 
 const categories = [
     {
-        name: 'all',
-        text:'모두 보기'
+        name: "all",
+        text: "전체 보기",
     },
     {
-        name: 'business',
-        text:"비즈니스",
+        name: "business",
+        text: "비즈니스",
     },
     {
-        name: 'entertainment',
-        text:"엔터테인먼트",
+        name: "entertainment",
+        text: "엔터테인먼트",
     },
     {
         name: "health",
@@ -19,16 +21,16 @@ const categories = [
     },
     {
         name: "science",
-        text: "과학",
+        text: "과학"
     },
     {
         name: "sports",
-        text: "스포츠"
+        text: "스포츠",
     },
     {
         name: "technology",
-        text: "테크놀로지"
-    },
+        text: "테크놀로지",
+    }
 ];
 
 const CategoriesBlock = styled.div`
@@ -42,7 +44,7 @@ margin: 0 auto;
 }
 `;
 
-const Category = styled.div`
+const Category = styled(NavLink)`
 font-size: 1.125rem;
 cursor: pointer;
 white-space: pre;
@@ -51,40 +53,41 @@ color: inherit;
 padding-bottom: 0.25rem;
 
 &:hover{
-    color: #495057;
+    color: skyblue;
+  }
+
+&.active{
+    font-weight: 600;
+    border-bottom: 2px solid red;
+    color: red;
+    &:hover{
+    color: pink;
+  }
+    
 }
 
-${props=>
-props.active && css`
-font-weight: 600;
-border-bottom: 2px solid #22b8cf;
-color: #22b8cf;
-&:hover{
-    color: #3bc9db;
-}
-`}
-
-
-& + &{
-    margin-left: 1rem;
-}
+  & + &{
+      margin-left: 1rem;
+  }
 `
 
-const Categories = ({onSelect, category})=>{
-    return(
+const Categories = ({ onSelect, category }) => {
+
+    return (
         <CategoriesBlock>
             {
-                categories.map(c=>
+                categories.map(c =>
                     <Category 
-                    key={c.name}
-                    active={category === c.name}
-                    onClick={()=>onSelect(c.name)}
-                    >
-                        {c.text}
-                   </Category>
-                    )
+                    key={c.name} 
+                    className={({isActive}) => (isActive? 'active': undefined)}
+                    to={c.name === 'all'? '/' : `/${c.name}`}
+                    >{c.text}</Category>
+                )
             }
+
         </CategoriesBlock>
     )
+
 }
+
 export default Categories;
