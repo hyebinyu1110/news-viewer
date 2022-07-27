@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 const NewsItemBlock = styled.div`
 display: flex;
 .thumbnail{
@@ -11,37 +12,42 @@ display: flex;
         object-fit: cover;
     }
 }
+
 .contents{
+h2{
     margin: 0;
-    h2{
-        margin: 0;
-        a{
-            color: black;
-        }
-    }
-    p{
-        margin: 0;
-        line-height: 1.5;
-        margin-top: 0.5rem;
-        white-space:normal;
+    a{
+        color: black;
     }
 }
-&+&{
+p{
+    margin: 0;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+    white-space: normal;
+}
+}
+
+& + &{
     margin-top: 3rem;
 }
 `
 
-const NewsItem = ({ article }) => {
-    const { title, description, url, urlToImage } = article;
+
+const NewsItem = ({article}) =>{
+
+    const {title, description, url, urlToImage} = article;
+
     return (
         <NewsItemBlock>
             {
-                urlToImage &&
+                urlToImage&&
                 <div className="thumbnail">
                     <a href={url} target="_blank" rel="noopener noreferrer">
                         <img src={urlToImage} alt="thumbnail" />
                     </a>
                 </div>
+
             }
             <div className="contents">
                 <h2>
@@ -53,9 +59,9 @@ const NewsItem = ({ article }) => {
                     {description}
                 </p>
             </div>
+
         </NewsItemBlock>
     )
-
 }
 
 export default NewsItem;
