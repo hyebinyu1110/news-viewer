@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const categories = [
@@ -51,11 +51,9 @@ white-space: pre;
 text-decoration: none;
 color: inherit;
 padding-bottom: 0.25rem;
-
 &:hover{
     color: skyblue;
   }
-
 &.active{
     font-weight: 600;
     border-bottom: 2px solid red;
@@ -65,22 +63,20 @@ padding-bottom: 0.25rem;
   }
     
 }
-
   & + &{
       margin-left: 1rem;
   }
 `
 
 const Categories = ({ onSelect, category }) => {
-
     return (
         <CategoriesBlock>
             {
                 categories.map(c =>
-                    <Category 
-                    key={c.name} 
-                    className={({isActive}) => (isActive? 'active': undefined)}
-                    to={c.name === 'all'? '/' : `/${c.name}`}
+                    <Category
+                        key={c.name}
+                        className={({ isActive }) => (isActive ? 'active' : undefined)}
+                        to={c.name === 'all' ? '/' : `/${c.name}`}
                     >{c.text}</Category>
                 )
             }

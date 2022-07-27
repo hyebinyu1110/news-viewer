@@ -1,15 +1,14 @@
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import NewsPage from './pages/NewsPage';
 
-const App = () =>{
+const App = () => {
 
-return(
-  <Routes>
-    <Route path="/" element={<NewsPage />} />
-    <Route path="/:category" element={<NewsPage />} />
-  </Routes>
-);
+  return (
+    <Routes>
+      <Route path="/" element={<NewsPage />} />
+      <Route path="/:category" element={<NewsPage />} />
+    </Routes>
+  );
 };
 
 export default App;
-
