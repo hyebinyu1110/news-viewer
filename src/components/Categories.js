@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const categories = [
@@ -8,11 +8,11 @@ const categories = [
         text: "전체보기",
     },
     {
-        name:"business",
+        name: "business",
         text: "비즈니스",
     },
     {
-        name:"entertainment",
+        name: "entertainment",
         text: "엔터테인먼트",
     },
     {
@@ -71,20 +71,20 @@ color: orange;
 `;
 
 
-const Categories = () =>{
+const Categories = () => {
 
-    return(
+    return (
         <CategoriesBlock>
             {
                 categories.map(c =>
-                    <Category 
-                    key={c.name}
-                    className={({isActive}) => isActive? 'active' : undefined }
-                    to={c.name === 'all' ?  '/' :`/${c.name}`}
+                    <Category
+                        key={c.name}
+                        className={({ isActive }) => isActive ? 'active' : undefined}
+                        to={c.name === 'all' ? '/' : `/${c.name}`}
                     >
                         {c.text}
                     </Category>
-                    )
+                )
             }
 
         </CategoriesBlock>
